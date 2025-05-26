@@ -172,43 +172,24 @@ public class Login extends javax.swing.JFrame {
 
     private void login_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_loginActionPerformed
         // TODO add your handling code here:
-        String inputUser = userName_login.getText();
-        String inputPw = new String(password_login.getPassword());
-        
-        user u = new user(userName_login.getText(), password_login.getText());
-        
-        String statusLogin = "";
-        if (u.getUserName().equals("admin") && u.getPassword().equals("admin123")) {
-            statusLogin = "admin";
-        } else if (storage.akunMap.containsKey(inputUser) && storage.akunMap.get(inputUser).equals(inputPw)) {
-            statusLogin = "user";
-        } else if(inputUser.isEmpty() || inputPw.isEmpty()){
-            statusLogin = "empety";
-            
-        }
-        else {
-            statusLogin = "gagal";
+        String username = userName_login.getText();
+        String password = new String(password_login.getPassword());
+
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username dan Password tidak boleh kosong!");
+            return;
         }
 
-        switch (statusLogin) {
-            case "admin":
-                new InputBarang().setVisible(true);
-                this.dispose();
-                break;
-
-            case "user":
-                new InputBarang().setVisible(true);
-                this.dispose();
-                break;
-                
-            case "empety":
-                JOptionPane.showMessageDialog(this, "Username dan Password tidak boleh kosong!");
-                break;
-
-            case "gagal":
-            default:
-                JOptionPane.showMessageDialog(this, "Username atau Password salah!");
-                break;
+        if (username.equals("admin") && password.equals("admin123")) {
+            new InputBarang().setVisible(true);
+            new Login().setVisible(false);
+            this.dispose();
+        } else if (storage.akunMap.containsKey(username) && storage.akunMap.get(username).equals(password)) {
+            new InputBarang().setVisible(true);
+            new Login().setVisible(false);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Username atau Password salah!");
         }
 
         
